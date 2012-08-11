@@ -128,18 +128,20 @@ namespace TerrainGame
 
             if (Keyboard.GetState().IsKeyDown(Keys.V))
             {
-                Critter c = new Critter();
-                c.PlaceRandomly(terrain);
-                critters.Add(c);
+                terrain.AddNewRandomCritter();
+                //Critter c = new Critter();
+                //c.PlaceRandomly(terrain);
+                //critters.Add(c);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    Critter c = new Critter();
-                    c.PlaceRandomly(terrain);
-                    critters.Add(c);
+                    terrain.AddNewRandomCritter();
+                    //Critter c = new Critter();
+                    //c.PlaceRandomly(terrain);
+                    //critters.Add(c);
                 }
             }
 
@@ -152,10 +154,11 @@ namespace TerrainGame
                 terrain.ClearOccupants();
             }
 
-            foreach (Critter c in critters)
-            {
-                c.Update(terrain);
-            }
+            terrain.Update();
+            //foreach (Critter c in critters)
+            //{
+                //c.Update(terrain);
+            //}
             //critters[0].GoLow(terrain);
 
             base.Update(gameTime);
@@ -173,7 +176,7 @@ namespace TerrainGame
             spriteBatch.Begin();
             //spriteBatch.Draw(terrainTexture, new Vector2(0, 0), Color.White); //One pixel per location.
             spriteBatch.Draw(terrainTexture, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0),new Vector2(2,2), SpriteEffects.None,1);
-            foreach (Critter c in critters)
+            foreach (Critter c in terrain.AllTheCritters)
             {
                 if (c.GetCritterType == Critter.CritterType.Climber)
                 {

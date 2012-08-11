@@ -113,17 +113,10 @@ namespace TerrainGame
                 j++;
             }
 
-
-
-
-
-            if (!terrain.IsOccupied(x + xMove, y + yMove))
-            {
-                terrain.Vacate(x, y);
-                x += xMove;
-                y += yMove;
-                terrain.Occupy(x, y, this);
-            }
+            terrain.Vacate(x, y);
+            x += xMove;
+            y += yMove;
+            terrain.Occupy(x, y, this);
         }
 
         private void GoHigh(Terrain terrain)
@@ -175,13 +168,10 @@ namespace TerrainGame
                 j++;
             }
 
-            if (!terrain.IsOccupied(x + xMove, y + yMove))
-            {
-                terrain.Vacate(x, y);
-                x += xMove;
-                y += yMove;
-                terrain.Occupy(x, y, this);
-            }
+            terrain.Vacate(x, y);
+            x += xMove;
+            y += yMove;
+            terrain.Occupy(x, y, this);
         }
     }
 }

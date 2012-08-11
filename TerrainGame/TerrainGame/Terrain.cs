@@ -10,6 +10,7 @@ namespace TerrainGame
     {
         private uint[] terrainHeightMap;
         private Critter[] occupiedBy;
+        private List<Critter> allTheCritters;
         private int width;
         private int height;
 
@@ -43,6 +44,7 @@ namespace TerrainGame
             height = 0;
             terrainHeightMap = new uint[0];
             occupiedBy = new Critter[0];
+            allTheCritters = new List<Critter>();
         }
 
         public Terrain(int w, int h)
@@ -51,6 +53,7 @@ namespace TerrainGame
             height = h;
             terrainHeightMap = new uint[w * h];
             occupiedBy = new Critter[w * h];
+            allTheCritters = new List<Critter>();
         }
 
         /// <summary>
@@ -231,5 +234,34 @@ namespace TerrainGame
         {
             occupiedBy = new Critter[width * height];
         }
+
+        internal void AddNewRandomCritter()
+        {
+            Critter c = new Critter();
+            bool success = false;
+            do
+            {
+                int x = Game1.rand.Next(width);
+                int y = Game1.rand.Next(height);
+                if (!IsOccupied(x, y))
+                {
+                    c.X = x;
+                    c.Y = y;
+                    Occupy(x, y, c);
+                    allTheCritters.Add(c);
+                    success = true;
+                }
+            } while (!success);
+        }
+
+        internal void Update()
+        {
+            foreach (Critter c in allTheCritters.ToArray())
+            {
+                c.Update(this);
+            }
+        }
+
+        public IEnumerable<Critter> AllTheCritters { get { return allTheCritters; } }
     }
 }
