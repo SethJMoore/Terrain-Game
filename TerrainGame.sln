@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrainGame", "TerrainGame\TerrainGame\TerrainGame.csproj", "{F0329B43-971E-43AD-B7E5-7D59436F87B6}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TerrainGameContent", "TerrainGame\TerrainGameContent\TerrainGameContent.contentproj", "{C0F866F4-DEFA-41BA-9F62-51F5A7275FCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F0329B43-971E-43AD-B7E5-7D59436F87B6}.Debug|x86.ActiveCfg = Debug|x86
+		{F0329B43-971E-43AD-B7E5-7D59436F87B6}.Debug|x86.Build.0 = Debug|x86
+		{F0329B43-971E-43AD-B7E5-7D59436F87B6}.Release|x86.ActiveCfg = Release|x86
+		{F0329B43-971E-43AD-B7E5-7D59436F87B6}.Release|x86.Build.0 = Release|x86
+		{C0F866F4-DEFA-41BA-9F62-51F5A7275FCC}.Debug|x86.ActiveCfg = Debug|x86
+		{C0F866F4-DEFA-41BA-9F62-51F5A7275FCC}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
