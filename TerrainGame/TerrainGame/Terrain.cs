@@ -56,29 +56,6 @@ namespace TerrainGame
             allTheCritters = new List<Critter>();
         }
 
-        /// <summary>
-        /// Generates a gradient height map. Red on the horizontal and green on the vertical.
-        /// </summary>
-        /// <param name="w">The width of the map</param>
-        /// <param name="h">The height (y-axis) of the height map</param>
-        internal void GenerateRedGreen(int w, int h)
-        {
-            width = w;
-            height = h;
-            terrainHeightMap = new uint[width * height];
-            for (uint i = 0; i < height; i++)
-            {
-                for (uint j = 0; j < width; j++)
-                {
-                    terrainHeightMap[i * width + j] = i + (j * 256) + 0xFF000000;
-                }
-                //terrainData[i].A = 255;
-                //terrainData[i].R = (byte)(i / 256);
-                //terrainData[i].G = (byte)(i % 256);
-                //terrainData[i].B = 0;
-            }
-        }
-
         internal Texture2D ToAbgrTexture(GraphicsDevice device)
         {
             Texture2D texture = new Texture2D(device, width, height);
@@ -104,7 +81,7 @@ namespace TerrainGame
         {
             for (int i = 0; i < terrainHeightMap.Count(); i++)
             {
-                //terrainHeightMap[i] = (uint)Game1.rand.Next(255);
+                //terrainHeightMap[i] = (uint)Game1.rand.Next(255); //Red terrain.
                 terrainHeightMap[i] = (uint)Game1.rand.Next(255) * 256; //For green terrain.
                 //terrainHeightMap[i] = (uint)Game1.rand.Next(255) * 256 * 256; //For blue terrain. 
             }
@@ -115,6 +92,13 @@ namespace TerrainGame
             return terrainHeightMap[x + y * width];
         }
 
+        /// <summary>
+        /// Returns the height/altitude of the location north of the supplied x, y coordinate.
+        /// If the coordinate is in the top row of the map, uint.MaxValue is returned.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         internal uint AltitudeNorthOf(int x, int y)
         {
             if (y - 1 >= 0)
@@ -127,6 +111,13 @@ namespace TerrainGame
             }
         }
         
+        /// <summary>
+        /// Returns the height/altitude of the location south of the supplied x, y coordinate.
+        /// If the coordinate is in the bottom row of the map, uint.MaxValue is returned.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         internal uint AltitudeSouthOf(int x, int y)
         {
             if (y + 1 < height)
@@ -139,6 +130,13 @@ namespace TerrainGame
             }
         }
         
+        /// <summary>
+        /// Returns the height/altitude of the location west of the supplied x, y coordinate.
+        /// If the coordinate is in the leftmost column of the map, uint.MaxValue is returned.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         internal uint AltitudeWestOf(int x, int y)
         {
             if (x - 1 >= 0)
@@ -151,6 +149,13 @@ namespace TerrainGame
             }
         }
         
+        /// <summary>
+        /// Returns the height/altitude of the location east of the supplied x, y coordinate.
+        /// If the coordinate is in the rightmost column of the map, uint.MaxValue is returned.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         internal uint AltitudeEastOf(int x, int y)
         {
             if (x + 1 < width)
@@ -163,7 +168,11 @@ namespace TerrainGame
             }
         }
 
-        internal void SmoothRandomly() //Better smoothing than SmoothLinearly(), but much slower.
+        /// <summary>
+        /// Smoothes the terrain.
+        /// Better smoothing than SmoothLinearly(), but much slower.
+        /// </summary>
+        internal void SmoothRandomly()
         {
             List<int> unSmoothedLocations = new List<int>();
             for (int i = 0; i < terrainHeightMap.Count(); i++)
@@ -180,7 +189,11 @@ namespace TerrainGame
             }
         }
 
-        internal void SmoothLinearly() //Not as smooth, but much faster than SmoothRandomly().
+        /// <summary>
+        /// Smoothes the terrain.
+        /// Not as smooth, but much faster than SmoothRandomly().
+        /// </summary>
+        internal void SmoothLinearly()
         {
             for (int i = 0; i < terrainHeightMap.Count(); i++)
             {
@@ -188,6 +201,10 @@ namespace TerrainGame
             }
         }
 
+        /// <summary>
+        /// Sets the supplied location to the average of its neighbors to the north, south, west, and east.
+        /// </summary>
+        /// <param name="locationToSmooth">The location on the map as an int (x + y * width).</param>
         private void AverageFromNeighbors(int locationToSmooth)
         {
             int neighborsFound = 0;
@@ -215,27 +232,50 @@ namespace TerrainGame
             terrainHeightMap[locationToSmooth] = (uint)(sum / neighborsFound);
         }
 
+        /// <summary>
+        /// Sets the x, y coordinate supplied as being occupied by the critter supplied.
+        /// </summary>
+        /// <param name="x">x coordinate</param>
+        /// <param name="y">y coordinate</param>
+        /// <param name="critter">The critter that will occupy this location.</param>
         internal void Occupy(int x, int y, Critter critter)
         {
             occupiedBy[x + y * width] = critter;
         }
 
+        /// <summary>
+        /// Clears the x, y coordinate supplied of its occupant.
+        /// </summary>
+        /// <param name="x">x coordinate</param>
+        /// <param name="y">y coordinate</param>
         internal void Vacate(int x, int y)
         {
             occupiedBy[x + y * width] = null;
         }
 
+        /// <summary>
+        /// Check if the supplied coordinate is occupied.
+        /// </summary>
+        /// <param name="x">x coordinate</param>
+        /// <param name="y">y coordinate</param>
+        /// <returns></returns>
         internal bool IsOccupied(int x, int y)
         {
             return occupiedBy[x + y * width] != null;
         }
 
+        /// <summary>
+        /// Gets rid of all the critters.
+        /// </summary>
         internal void ClearOccupants()
         {
             occupiedBy = new Critter[width * height];
             allTheCritters.Clear();
         }
 
+        /// <summary>
+        /// Creates a critter and places it at a random, unoccupied coordinate.
+        /// </summary>
         internal void AddNewRandomCritter()
         {
             Critter c = new Critter();

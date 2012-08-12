@@ -25,8 +25,6 @@ namespace TerrainGame
         Terrain terrain;
         Texture2D terrainTexture;
 
-        //Critter critter;
-        List<Critter> critters;
         Texture2D critterTexture1;
         Texture2D critterTexture2;
 
@@ -48,19 +46,15 @@ namespace TerrainGame
             rand = new Random();
             mapWidth = 300;
             mapHeight = 300;
-            //terrain = new Terrain();
-            //terrain.GenerateRedGreen(mapWidth, mapHeight);
             terrain = new Terrain(mapWidth, mapHeight);
             terrain.Randomize();
             for (int i = 0; i < 200; i++)
             {
                 terrain.SmoothLinearly();
+                //terrain.SmoothRandomly();
             }
             terrainTexture = terrain.ToAbgrTexture(graphics.GraphicsDevice);
 
-            critters = new List<Critter>();
-            critters.Add(new Critter());
-            critters[0].PlaceRandomly(terrain);
 
             graphics.PreferredBackBufferHeight = mapHeight * 2;
             graphics.PreferredBackBufferWidth = mapWidth * 2;
@@ -108,7 +102,7 @@ namespace TerrainGame
                 this.Exit();
 
             // TODO: Add your update logic here
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) //Space randomizes the map.
             {
                 terrain.Randomize();
                 terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
@@ -121,12 +115,7 @@ namespace TerrainGame
                 terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.C))
-            {
-                //critters[0].PlaceRandomly(terrain);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.V))
+            if (Keyboard.GetState().IsKeyDown(Keys.V)) //V pastes a new critter to a random location.
             {
                 terrain.AddNewRandomCritter();
                 //Critter c = new Critter();
@@ -134,7 +123,7 @@ namespace TerrainGame
                 //critters.Add(c);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            if (Keyboard.GetState().IsKeyDown(Keys.P)) //P populates the terrain with 100 new randomly placed critters.
             {
                 for (int i = 0; i < 100; i++)
                 {
@@ -145,7 +134,7 @@ namespace TerrainGame
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //Escape randomizes the map and gets rid of all the critters.
             {
                 terrain.Randomize();
                 terrainTexture = terrain.ToAbgrTexture(graphics.GraphicsDevice);
@@ -154,11 +143,6 @@ namespace TerrainGame
             }
 
             terrain.Update();
-            //foreach (Critter c in critters)
-            //{
-                //c.Update(terrain);
-            //}
-            //critters[0].GoLow(terrain);
 
             base.Update(gameTime);
         }

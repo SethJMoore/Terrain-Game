@@ -19,7 +19,7 @@ namespace TerrainGame
         {
             x = 0;
             y = 0;
-            critterType = CritterType.Diver;
+            critterType = (CritterType)Game1.rand.Next(2); //Random Critter type.
         }
 
         internal void PlaceRandomly(Terrain terrain)
