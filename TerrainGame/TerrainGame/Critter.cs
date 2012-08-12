@@ -75,7 +75,10 @@ namespace TerrainGame
         {
             if (terrain.IsOccupiedNorthOf(x, y) && terrain.IsOccupiedSouthOf(x, y) && terrain.IsOccupiedWestOf(x, y) && terrain.IsOccupiedEastOf(x, y))
             {
-                terrain.RemoveCritter(this);
+                if (Game1.rand.NextDouble() < 0.05)
+                {
+                    terrain.RemoveCritter(this);
+                }
             }
         }
 
