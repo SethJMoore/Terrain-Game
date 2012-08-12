@@ -58,12 +58,13 @@ namespace TerrainGame
                 GoHigh(terrain);
             }
 
-            if (Game1.rand.Next(100) < 1)
+            //if (Game1.rand.NextDouble() < 0.001)
+            if (Game1.rand.NextDouble() < 0.01)
             {
                 critterType = (CritterType)Game1.rand.Next(2);
             }
 
-            if (Game1.rand.Next(100) < 1)
+            if (Game1.rand.NextDouble() < 0.01)
             {
                 Reproduce(terrain);
             }
