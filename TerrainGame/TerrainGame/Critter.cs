@@ -36,12 +36,12 @@ namespace TerrainGame
             }
         }
 
-        public float X
+        public int X
         {
             get { return x; }
             set { x = (int)value; }
         }
-        public float Y
+        public int Y
         {
             get { return y; }
             set { y = (int)value; }
@@ -62,6 +62,48 @@ namespace TerrainGame
             {
                 critterType = (CritterType)Game1.rand.Next(2);
             }
+
+            if (Game1.rand.Next(100) < 1)
+            {
+                Reproduce(terrain);
+            }
+
+            Die(terrain);
+        }
+
+        private void Die(Terrain terrain)
+        {
+            if (terrain.IsOccupiedNorthOf(x, y) && terrain.IsOccupiedSouthOf(x, y) && terrain.IsOccupiedWestOf(x, y) && terrain.IsOccupiedEastOf(x, y))
+            {
+                terrain.RemoveCritter(this);
+            }
+        }
+
+        private void Reproduce(Terrain terrain)
+        {
+            int r = Game1.rand.Next(4);
+            switch (r)
+            {
+                case 0:
+                    if (!terrain.IsOccupiedNorthOf(x, y)) terrain.AddCritter(x, y - 1, CloneMe());
+                    break;
+                case 1:
+                    if (!terrain.IsOccupiedSouthOf(x, y)) terrain.AddCritter(x, y + 1, CloneMe());
+                    break;
+                case 2:
+                    if (!terrain.IsOccupiedWestOf(x, y)) terrain.AddCritter(x - 1, y, CloneMe());
+                    break;
+                case 3:
+                    if (!terrain.IsOccupiedEastOf(x, y)) terrain.AddCritter(x + 1, y, CloneMe());
+                    break;
+            }
+        }
+
+        private Critter CloneMe()
+        {
+            Critter c = new Critter();
+            c.SetCritterType = critterType;
+            return c;
         }
 
         private void GoLow(Terrain terrain)
@@ -76,7 +118,8 @@ namespace TerrainGame
                 switch (j % 4)
                 {
                     case 0:
-                        if (y > 0 && terrain.AltitudeNorthOf(x, y) < lowest && !terrain.IsOccupied(x, y - 1))
+                        //if (y > 0 && terrain.AltitudeNorthOf(x, y) < lowest && !terrain.IsOccupied(x, y - 1))
+                        if (y > 0 && terrain.AltitudeNorthOf(x, y) < lowest && !terrain.IsOccupiedNorthOf(x, y))
                         {
                             lowest = terrain.AltitudeNorthOf(x, y);
                             yMove = -1;
@@ -84,7 +127,7 @@ namespace TerrainGame
                         }
                         break;
                     case 1:
-                        if (x > 0 && terrain.AltitudeWestOf(x, y) < lowest && !terrain.IsOccupied(x - 1, y))
+                        if (x > 0 && terrain.AltitudeWestOf(x, y) < lowest && !terrain.IsOccupiedWestOf(x, y))
                         {
                             lowest = terrain.AltitudeWestOf(x, y);
                             xMove = -1;
@@ -92,7 +135,7 @@ namespace TerrainGame
                         }
                         break;
                     case 2:
-                        if (y < terrain.Height - 1 && terrain.AltitudeSouthOf(x, y) < lowest && !terrain.IsOccupied(x, y + 1))
+                        if (y < terrain.Height - 1 && terrain.AltitudeSouthOf(x, y) < lowest && !terrain.IsOccupiedSouthOf(x, y))
                         {
                             lowest = terrain.AltitudeSouthOf(x, y);
                             yMove = 1;
@@ -100,7 +143,7 @@ namespace TerrainGame
                         }
                         break;
                     case 3:
-                        if (x < terrain.Width - 1 && terrain.AltitudeEastOf(x, y) < lowest && !terrain.IsOccupied(x + 1, y))
+                        if (x < terrain.Width - 1 && terrain.AltitudeEastOf(x, y) < lowest && !terrain.IsOccupiedEastOf(x, y))
                         {
                             lowest = terrain.AltitudeEastOf(x, y);
                             xMove = 1;
@@ -173,5 +216,7 @@ namespace TerrainGame
             y += yMove;
             terrain.Occupy(x, y, this);
         }
+
+        public CritterType SetCritterType { set { critterType = value; } }
     }
 }

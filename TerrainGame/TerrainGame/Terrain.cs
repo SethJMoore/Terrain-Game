@@ -304,5 +304,40 @@ namespace TerrainGame
         }
 
         public IEnumerable<Critter> AllTheCritters { get { return allTheCritters; } }
+
+        internal bool IsOccupiedNorthOf(int x, int y)
+        {
+            if (y == 0) return true;
+            return IsOccupied(x, y - 1);
+        }
+        internal bool IsOccupiedSouthOf(int x, int y)
+        {
+            if (y == height - 1) return true;
+            return IsOccupied(x, y + 1);
+        }
+        internal bool IsOccupiedWestOf(int x, int y)
+        {
+            if (x == 0) return true;
+            return IsOccupied(x - 1, y);
+        }
+        internal bool IsOccupiedEastOf(int x, int y)
+        {
+            if (x == width - 1) return true;
+            return IsOccupied(x + 1, y);
+        }
+
+        internal void AddCritter(int x, int y, Critter critter)
+        {
+            critter.X = x;
+            critter.Y = y;
+            Occupy(x, y, critter);
+            allTheCritters.Add(critter);
+        }
+
+        internal void RemoveCritter(Critter critter)
+        {
+            Vacate(critter.X, critter.Y);
+            allTheCritters.Remove(critter);
+        }
     }
 }
