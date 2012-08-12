@@ -233,6 +233,7 @@ namespace TerrainGame
         internal void ClearOccupants()
         {
             occupiedBy = new Critter[width * height];
+            allTheCritters.Clear();
         }
 
         internal void AddNewRandomCritter()

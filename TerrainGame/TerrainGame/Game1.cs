@@ -123,7 +123,7 @@ namespace TerrainGame
 
             if (Keyboard.GetState().IsKeyDown(Keys.C))
             {
-                critters[0].PlaceRandomly(terrain);
+                //critters[0].PlaceRandomly(terrain);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.V))
@@ -150,7 +150,6 @@ namespace TerrainGame
                 terrain.Randomize();
                 terrainTexture = terrain.ToAbgrTexture(graphics.GraphicsDevice);
 
-                critters.Clear();
                 terrain.ClearOccupants();
             }
 
