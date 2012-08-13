@@ -53,7 +53,16 @@ namespace TerrainGame
 
         internal void Update(Terrain terrain)
         {
-            if (critterType == CritterType.Diver)
+            bool turnDone = false;
+            if (fertile)
+            {
+                if (TryToGetLucky(terrain))
+                {
+                    turnDone = true;
+                }
+            }
+            
+            if (critterType == CritterType.Diver && !turnDone)
             {
                 if (!fertile)
                 {
@@ -64,7 +73,7 @@ namespace TerrainGame
                     GoHigh(terrain);
                 }
             }
-            else if (critterType == CritterType.Climber)
+            else if (critterType == CritterType.Climber && !turnDone)
             {
                 if (!fertile)
                 {
@@ -76,10 +85,6 @@ namespace TerrainGame
                 }
             }
 
-            if (fertile)
-            {
-                TryToGetLucky(terrain);
-            }
             //if (Game1.rand.NextDouble() < 0.001)
             //if (Game1.rand.NextDouble() < 0.01)
             //{
@@ -105,9 +110,11 @@ namespace TerrainGame
             }
         }
 
-        private void TryToGetLucky(Terrain terrain)
+        private bool TryToGetLucky(Terrain terrain)
         {
-            Reproduce(terrain);
+            bool successfull = false;
+            successfull = Reproduce(terrain);
+            return successfull;
         }
 
         private void ToDiePerchance(Terrain terrain)
@@ -126,28 +133,34 @@ namespace TerrainGame
             terrain.RemoveCritter(this);
         }
 
-        private void Reproduce(Terrain terrain)
+        private bool Reproduce(Terrain terrain)
         {
+            bool successfull = false;
             int r = Game1.rand.Next(4);
             switch (r)
             {
                 case 0:
                     if (!terrain.IsOccupiedNorthOf(x, y)) terrain.AddCritter(x, y - 1, CloneMe());
                     //fertile = !fertile;
+                    successfull = true;
                     break;
                 case 1:
                     if (!terrain.IsOccupiedSouthOf(x, y)) terrain.AddCritter(x, y + 1, CloneMe());
                     //fertile = !fertile;
+                    successfull = true;
                     break;
                 case 2:
                     if (!terrain.IsOccupiedWestOf(x, y)) terrain.AddCritter(x - 1, y, CloneMe());
                     //fertile = !fertile;
+                    successfull = true;
                     break;
                 case 3:
                     if (!terrain.IsOccupiedEastOf(x, y)) terrain.AddCritter(x + 1, y, CloneMe());
                     //fertile = !fertile;
+                    successfull = true;
                     break;
             }
+            return successfull;
         }
 
         private Critter CloneMe()
