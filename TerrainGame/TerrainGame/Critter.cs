@@ -71,19 +71,24 @@ namespace TerrainGame
                 Reproduce(terrain);
             }
 
-            Die(terrain);
+            ToDiePerchance(terrain);
             age++;
         }
 
-        private void Die(Terrain terrain)
+        private void ToDiePerchance(Terrain terrain)
         {
             if (terrain.IsOccupiedNorthOf(x, y) && terrain.IsOccupiedSouthOf(x, y) && terrain.IsOccupiedWestOf(x, y) && terrain.IsOccupiedEastOf(x, y))
             {
                 if (Game1.rand.NextDouble() < age * 0.001)
                 {
-                    terrain.RemoveCritter(this);
+                    Die(terrain);
                 }
             }
+        }
+
+        private void Die(Terrain terrain)
+        {
+            terrain.RemoveCritter(this);
         }
 
         private void Reproduce(Terrain terrain)
