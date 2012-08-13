@@ -58,7 +58,7 @@ namespace TerrainGame
             {
                 if (TryToGetLucky(terrain))
                 {
-                    turnDone = true;
+                    turnDone = true; //Comment out to allow reproduction and movement on same turn.
                 }
             }
             
