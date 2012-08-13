@@ -156,22 +156,34 @@ namespace TerrainGame
             {
                 case 0:
                     if (!terrain.IsOccupiedNorthOf(x, y)) terrain.AddCritter(x, y - 1, CloneMe());
-                    //fertile = !fertile;
+                    if (Game1.rand.NextDouble() < 0.1)
+                    {
+                        fertile = !fertile;
+                    }
                     successfull = true;
                     break;
                 case 1:
                     if (!terrain.IsOccupiedSouthOf(x, y)) terrain.AddCritter(x, y + 1, CloneMe());
-                    //fertile = !fertile;
+                    if (Game1.rand.NextDouble() < 0.1)
+                    {
+                        fertile = !fertile;
+                    }
                     successfull = true;
                     break;
                 case 2:
                     if (!terrain.IsOccupiedWestOf(x, y)) terrain.AddCritter(x - 1, y, CloneMe());
-                    //fertile = !fertile;
+                    if (Game1.rand.NextDouble() < 0.1)
+                    {
+                        fertile = !fertile;
+                    }
                     successfull = true;
                     break;
                 case 3:
                     if (!terrain.IsOccupiedEastOf(x, y)) terrain.AddCritter(x + 1, y, CloneMe());
-                    //fertile = !fertile;
+                    if (Game1.rand.NextDouble() < 0.1)
+                    {
+                        fertile = !fertile;
+                    }
                     successfull = true;
                     break;
             }
