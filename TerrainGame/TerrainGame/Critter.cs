@@ -15,6 +15,7 @@ namespace TerrainGame
         int x, y; //X and Y cooridinates.
         CritterType critterType;
         int age;
+        bool fertile;
 
         public Critter()
         {
@@ -22,6 +23,7 @@ namespace TerrainGame
             y = 0;
             critterType = (CritterType)Game1.rand.Next(2); //Random Critter type.
             age = 0;
+            fertile = false;
         }
 
         internal void PlaceRandomly(Terrain terrain)
@@ -53,26 +55,50 @@ namespace TerrainGame
         {
             if (critterType == CritterType.Diver)
             {
-                GoLow(terrain);
+                if (!fertile)
+                {
+                    GoLow(terrain);
+                }
+                else
+                {
+                    GoHigh(terrain);
+                }
             }
             else if (critterType == CritterType.Climber)
             {
-                GoHigh(terrain);
+                if (!fertile)
+                {
+                    GoHigh(terrain);
+                }
+                else
+                {
+                    GoLow(terrain);
+                }
             }
 
             //if (Game1.rand.NextDouble() < 0.001)
-            if (Game1.rand.NextDouble() < 0.01)
-            {
-                critterType = (CritterType)Game1.rand.Next(2);
-            }
+            //if (Game1.rand.NextDouble() < 0.01)
+            //{
+                //critterType = (CritterType)Game1.rand.Next(2);
+            //}
 
-            if (Game1.rand.NextDouble() < 0.01)
-            {
-                Reproduce(terrain);
-            }
+            //if (Game1.rand.NextDouble() < 0.01)
+            //{
+                //Reproduce(terrain);
+            //}
 
             ToDiePerchance(terrain);
+
             age++;
+            
+            if (age == 200)
+            {
+                fertile = true;
+            }
+            if (age == 1000)
+            {
+                fertile = false;
+            }
         }
 
         private void ToDiePerchance(Terrain terrain)
