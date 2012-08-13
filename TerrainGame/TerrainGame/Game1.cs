@@ -44,8 +44,8 @@ namespace TerrainGame
         {
             // TODO: Add your initialization logic here
             rand = new Random();
-            mapWidth = 300;
-            mapHeight = 300;
+            mapWidth = 200;
+            mapHeight = 200;
             terrain = new Terrain(mapWidth, mapHeight);
             terrain.Randomize();
             for (int i = 0; i < 200; i++)
