@@ -76,6 +76,10 @@ namespace TerrainGame
                 }
             }
 
+            if (fertile)
+            {
+                TryToGetLucky(terrain);
+            }
             //if (Game1.rand.NextDouble() < 0.001)
             //if (Game1.rand.NextDouble() < 0.01)
             //{
@@ -101,6 +105,11 @@ namespace TerrainGame
             }
         }
 
+        private void TryToGetLucky(Terrain terrain)
+        {
+            Reproduce(terrain);
+        }
+
         private void ToDiePerchance(Terrain terrain)
         {
             if (terrain.IsOccupiedNorthOf(x, y) && terrain.IsOccupiedSouthOf(x, y) && terrain.IsOccupiedWestOf(x, y) && terrain.IsOccupiedEastOf(x, y))
@@ -124,15 +133,19 @@ namespace TerrainGame
             {
                 case 0:
                     if (!terrain.IsOccupiedNorthOf(x, y)) terrain.AddCritter(x, y - 1, CloneMe());
+                    fertile = !fertile;
                     break;
                 case 1:
                     if (!terrain.IsOccupiedSouthOf(x, y)) terrain.AddCritter(x, y + 1, CloneMe());
+                    fertile = !fertile;
                     break;
                 case 2:
                     if (!terrain.IsOccupiedWestOf(x, y)) terrain.AddCritter(x - 1, y, CloneMe());
+                    fertile = !fertile;
                     break;
                 case 3:
                     if (!terrain.IsOccupiedEastOf(x, y)) terrain.AddCritter(x + 1, y, CloneMe());
+                    fertile = !fertile;
                     break;
             }
         }
