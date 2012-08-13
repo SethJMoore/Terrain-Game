@@ -14,12 +14,14 @@ namespace TerrainGame
 
         int x, y; //X and Y cooridinates.
         CritterType critterType;
+        int age;
 
         public Critter()
         {
             x = 0;
             y = 0;
             critterType = (CritterType)Game1.rand.Next(2); //Random Critter type.
+            age = 0;
         }
 
         internal void PlaceRandomly(Terrain terrain)
@@ -70,13 +72,14 @@ namespace TerrainGame
             }
 
             Die(terrain);
+            age++;
         }
 
         private void Die(Terrain terrain)
         {
             if (terrain.IsOccupiedNorthOf(x, y) && terrain.IsOccupiedSouthOf(x, y) && terrain.IsOccupiedWestOf(x, y) && terrain.IsOccupiedEastOf(x, y))
             {
-                if (Game1.rand.NextDouble() < 0.05)
+                if (Game1.rand.NextDouble() < age * 0.001)
                 {
                     terrain.RemoveCritter(this);
                 }
