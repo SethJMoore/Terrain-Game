@@ -339,5 +339,39 @@ namespace TerrainGame
             Vacate(critter.X, critter.Y);
             allTheCritters.Remove(critter);
         }
+
+        internal Critter OccupiedByNorthOf(int x, int y)
+        {
+            if (y > 0)
+                return OccupiedBy(x, y - 1);
+            else
+                return null;
+        }
+        internal Critter OccupiedBySouthOf(int x, int y)
+        {
+            if (y < height - 1)
+                return OccupiedBy(x, y + 1);
+            else
+                return null;
+        }
+        internal Critter OccupiedByWestOf(int x, int y)
+        {
+            if (x > 0)
+                return OccupiedBy(x - 1, y);
+            else
+                return null;
+        }
+        internal Critter OccupiedByEastOf(int x, int y)
+        {
+            if (x < width - 1)
+                return OccupiedBy(x + 1, y);
+            else
+                return null;
+        }
+
+        private Critter OccupiedBy(int x, int y)
+        {
+            return occupiedBy[x + y * width];
+        }
     }
 }

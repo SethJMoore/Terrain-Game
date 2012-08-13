@@ -113,7 +113,22 @@ namespace TerrainGame
         private bool TryToGetLucky(Terrain terrain)
         {
             bool successfull = false;
-            successfull = Reproduce(terrain);
+            if (terrain.OccupiedByNorthOf(x, y) != null && terrain.OccupiedByNorthOf(x, y).critterType != critterType)
+            {
+                successfull = Reproduce(terrain);
+            }
+            else if (terrain.OccupiedBySouthOf(x, y) != null && terrain.OccupiedBySouthOf(x, y).critterType != critterType)
+            {
+                successfull = Reproduce(terrain);
+            }
+            else if (terrain.OccupiedByWestOf(x, y) != null && terrain.OccupiedByWestOf(x, y).critterType != critterType)
+            {
+                successfull = Reproduce(terrain);
+            }
+            else if (terrain.OccupiedByEastOf(x, y) != null && terrain.OccupiedByEastOf(x, y).critterType != critterType)
+            {
+                successfull = Reproduce(terrain);
+            }
             return successfull;
         }
 
