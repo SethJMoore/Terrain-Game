@@ -11,6 +11,7 @@ namespace TerrainGame
         private uint[] terrainHeightMap;
         private Critter[] occupiedBy;
         private List<Critter> allTheCritters;
+        private Rider rider;
         private int width;
         private int height;
 

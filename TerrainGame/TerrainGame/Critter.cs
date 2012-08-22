@@ -16,6 +16,7 @@ namespace TerrainGame
         CritterType critterType;
         int age;
         bool fertile;
+        bool alive;
 
         public Critter()
         {
@@ -24,12 +25,21 @@ namespace TerrainGame
             critterType = (CritterType)Game1.rand.Next(2); //Random Critter type.
             age = 0;
             fertile = false;
+            alive = true;
         }
 
         internal void PlaceRandomly(Terrain terrain)
         {
             x = Game1.rand.Next(terrain.Width);
             y = Game1.rand.Next(terrain.Height);
+        }
+
+        public bool Alive
+        {
+            get
+            {
+                return alive;
+            }
         }
 
         public CritterType GetCritterType
@@ -145,6 +155,7 @@ namespace TerrainGame
 
         private void Die(Terrain terrain)
         {
+            alive = false;
             terrain.RemoveCritter(this);
         }
 
