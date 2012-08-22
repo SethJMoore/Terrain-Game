@@ -10,7 +10,13 @@ namespace TerrainGame
         private Critter myMount;
         int x, y;
 
-        public Rider(Critter mount)
+        public Rider()
+        {
+            x = -1;
+            y = -1;
+        }
+        
+        public void MountCritter(Critter mount)
         {
             myMount = mount;
             x = myMount.X;

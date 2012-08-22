@@ -55,6 +55,7 @@ namespace TerrainGame
             terrainHeightMap = new uint[w * h];
             occupiedBy = new Critter[w * h];
             allTheCritters = new List<Critter>();
+            rider = new Rider();
         }
 
         internal Texture2D ToAbgrTexture(GraphicsDevice device)
