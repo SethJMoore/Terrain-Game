@@ -28,6 +28,10 @@ namespace TerrainGame
         Texture2D critterTexture1;
         Texture2D critterTexture2;
 
+        KeyboardState previousKeyboardState;
+
+        uint turnNumber;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,6 +47,7 @@ namespace TerrainGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            turnNumber = 0;
             rand = new Random();
             mapWidth = 200;
             mapHeight = 200;
@@ -59,6 +64,7 @@ namespace TerrainGame
             graphics.PreferredBackBufferHeight = mapHeight * 2;
             graphics.PreferredBackBufferWidth = mapWidth * 2;
             graphics.ApplyChanges();
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -97,25 +103,33 @@ namespace TerrainGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState currentKeyboardState = Keyboard.GetState();
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) //Space randomizes the map.
+            if (currentKeyboardState.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space)) //Space randomizes the map.
             {
                 terrain.Randomize();
                 terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.S)) //S for Smooth.
+            if (currentKeyboardState.IsKeyDown(Keys.S)) //S for Smooth.
             {
                 //terrain.SmoothRandomly();
                 terrain.SmoothLinearly();
                 terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.V)) //V pastes a new critter to a random location.
+            //Erosion of the terrain every so many turns.
+            if (turnNumber % 100 == 0)
+            {
+                terrain.SmoothLinearly();
+                terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.V) && previousKeyboardState.IsKeyUp(Keys.V)) //V pastes a new critter to a random location.
             {
                 terrain.AddNewRandomCritter();
                 //Critter c = new Critter();
@@ -123,7 +137,7 @@ namespace TerrainGame
                 //critters.Add(c);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.P)) //P populates the terrain with 100 new randomly placed critters.
+            if (currentKeyboardState.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P)) //P populates the terrain with 100 new randomly placed critters.
             {
                 for (int i = 0; i < 100; i++)
                 {
@@ -134,7 +148,7 @@ namespace TerrainGame
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //Escape randomizes the map and gets rid of all the critters.
+            if (currentKeyboardState.IsKeyDown(Keys.Escape) && previousKeyboardState.IsKeyUp(Keys.Escape)) //Escape randomizes the map and gets rid of all the critters.
             {
                 terrain.Randomize();
                 terrainTexture = terrain.ToAbgrTexture(graphics.GraphicsDevice);
@@ -144,6 +158,8 @@ namespace TerrainGame
 
             terrain.Update();
 
+            previousKeyboardState = currentKeyboardState;
+            turnNumber++;
             base.Update(gameTime);
         }
 
