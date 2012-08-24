@@ -16,6 +16,8 @@ namespace TerrainGame
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        const int UPDATEFREQUENCY = 9; // 1 is fastest. Higher is slower.
+
         public static Random rand;
 
         GraphicsDeviceManager graphics;
@@ -129,11 +131,11 @@ namespace TerrainGame
             }
 
             //Erosion of the terrain every so many turns.
-            if (turnNumber % 100 == 0)
-            {
-                terrain.SmoothLinearly();
-                terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
-            }
+            //if (turnNumber % 100 == 0)
+            //{
+                //terrain.SmoothLinearly();
+                //terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
+            //}
 
             if (currentKeyboardState.IsKeyDown(Keys.V) && previousKeyboardState.IsKeyUp(Keys.V)) //V pastes a new critter to a random location.
             {
@@ -162,10 +164,14 @@ namespace TerrainGame
                 terrain.ClearOccupants();
             }
 
-            terrain.Update();
+
+            if (turnNumber % UPDATEFREQUENCY == 0)
+            {
+                terrain.Update();
+            }
+            turnNumber++;
 
             previousKeyboardState = currentKeyboardState;
-            turnNumber++;
             base.Update(gameTime);
         }
 
