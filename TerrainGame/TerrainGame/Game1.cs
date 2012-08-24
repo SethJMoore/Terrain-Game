@@ -133,13 +133,25 @@ namespace TerrainGame
                 terrainTexture = terrain.ToAbgrTexture(GraphicsDevice);
             }
 
-
             if (currentKeyboardState.IsKeyDown(Keys.V) && previousKeyboardState.IsKeyUp(Keys.V)) //V pastes a new critter to a random location.
             {
                 terrain.AddNewRandomCritter();
                 //Critter c = new Critter();
                 //c.PlaceRandomly(terrain);
                 //critters.Add(c);
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Up) && previousKeyboardState.IsKeyUp(Keys.Up)) //Up arrow increases speed of game.
+            {
+                if (updateFrequency > 1)
+                {
+                    updateFrequency--;
+                }
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Down) && previousKeyboardState.IsKeyUp(Keys.Down)) //Down arrow decreases speed of game.
+            {
+                updateFrequency++;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P)) //P populates the terrain with 100 new randomly placed critters.
