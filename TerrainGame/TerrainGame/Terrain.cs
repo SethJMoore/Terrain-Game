@@ -381,7 +381,7 @@ namespace TerrainGame
                 return null;
         }
 
-        private Critter OccupiedBy(int x, int y)
+        internal Critter OccupiedBy(int x, int y)
         {
             return occupiedBy[x + y * width];
         }

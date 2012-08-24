@@ -28,8 +28,8 @@ namespace TerrainGame
 
         public Rider()
         {
-            x = -1;
-            y = -1;
+            x = 0;
+            y = 0;
         }
         
         public void MountCritter(Critter mount)
@@ -54,10 +54,14 @@ namespace TerrainGame
                 x = myMount.X;
                 y = myMount.Y;
             }
-            else
+            else if (terrain.IsOccupied(x, y))
             {
-                MountCritter(terrain.RandomCritter());
+                MountCritter(terrain.OccupiedBy(x, y));
             }
+            //else
+            //{
+                //MountCritter(terrain.RandomCritter());
+            //}
         }
     }
 }
