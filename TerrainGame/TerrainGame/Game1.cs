@@ -154,6 +154,38 @@ namespace TerrainGame
                 updateFrequency++;
             }
 
+            if (currentKeyboardState.IsKeyDown(Keys.Up) && previousKeyboardState.IsKeyUp(Keys.Up)) //Up key changes mount to the critter to the north.
+            {
+                if (terrain.OccupiedByNorthOf(terrain.TheRider.X, terrain.TheRider.Y) != null)
+                {
+                    terrain.TheRider.MountCritter(terrain.OccupiedByNorthOf(terrain.TheRider.X, terrain.TheRider.Y));
+                }
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Down) && previousKeyboardState.IsKeyUp(Keys.Down)) //Down key changes mount to the critter to the south.
+            {
+                if (terrain.OccupiedBySouthOf(terrain.TheRider.X, terrain.TheRider.Y) != null)
+                {
+                    terrain.TheRider.MountCritter(terrain.OccupiedBySouthOf(terrain.TheRider.X, terrain.TheRider.Y));
+                }
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Left) && previousKeyboardState.IsKeyUp(Keys.Left)) //Left key changes mount to the critter to the west.
+            {
+                if (terrain.OccupiedByWestOf(terrain.TheRider.X, terrain.TheRider.Y) != null)
+                {
+                    terrain.TheRider.MountCritter(terrain.OccupiedByWestOf(terrain.TheRider.X, terrain.TheRider.Y));
+                }
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Right) && previousKeyboardState.IsKeyUp(Keys.Right)) //Right key changes mount to the critter to the east.
+            {
+                if (terrain.OccupiedByEastOf(terrain.TheRider.X, terrain.TheRider.Y) != null)
+                {
+                    terrain.TheRider.MountCritter(terrain.OccupiedByEastOf(terrain.TheRider.X, terrain.TheRider.Y));
+                }
+            }
+
             if (currentKeyboardState.IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P)) //P populates the terrain with 100 new randomly placed critters.
             {
                 for (int i = 0; i < 100; i++)
