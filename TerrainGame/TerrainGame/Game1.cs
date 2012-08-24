@@ -141,7 +141,7 @@ namespace TerrainGame
                 //critters.Add(c);
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Up) && previousKeyboardState.IsKeyUp(Keys.Up)) //Up arrow increases speed of game.
+            if (currentKeyboardState.IsKeyDown(Keys.OemPlus) && previousKeyboardState.IsKeyUp(Keys.OemPlus)) //Plus key increases speed of game.
             {
                 if (updateFrequency > 1)
                 {
@@ -149,7 +149,7 @@ namespace TerrainGame
                 }
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Down) && previousKeyboardState.IsKeyUp(Keys.Down)) //Down arrow decreases speed of game.
+            if (currentKeyboardState.IsKeyDown(Keys.OemMinus) && previousKeyboardState.IsKeyUp(Keys.OemMinus)) //Minus key decreases speed of game.
             {
                 updateFrequency++;
             }
@@ -159,9 +159,6 @@ namespace TerrainGame
                 for (int i = 0; i < 100; i++)
                 {
                     terrain.AddNewRandomCritter();
-                    //Critter c = new Critter();
-                    //c.PlaceRandomly(terrain);
-                    //critters.Add(c);
                 }
             }
 
