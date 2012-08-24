@@ -312,7 +312,7 @@ namespace TerrainGame
             {
                 c.Update(this);
             }
-            rider.Update();
+            rider.Update(this);
         }
 
         public IEnumerable<Critter> AllTheCritters { get { return allTheCritters; } }
@@ -384,6 +384,18 @@ namespace TerrainGame
         private Critter OccupiedBy(int x, int y)
         {
             return occupiedBy[x + y * width];
+        }
+
+        internal Critter RandomCritter()
+        {
+            if (allTheCritters.Count() > 0)
+            {
+                return allTheCritters[Game1.rand.Next(allTheCritters.Count())];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

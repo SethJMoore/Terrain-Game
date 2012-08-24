@@ -34,12 +34,20 @@ namespace TerrainGame
         
         public void MountCritter(Critter mount)
         {
-            myMount = mount;
-            x = myMount.X;
-            y = myMount.Y;
+            if (mount != null)
+            {
+                myMount = mount;
+                x = myMount.X;
+                y = myMount.Y;
+            }
+            else
+            {
+                x = 0;
+                y = 0;
+            }
         }
 
-        internal void Update()
+        internal void Update(Terrain terrain)
         {
             if (myMount != null && myMount.Alive)
             {
@@ -48,8 +56,7 @@ namespace TerrainGame
             }
             else
             {
-                x = 0;
-                y = 0;
+                MountCritter(terrain.RandomCritter());
             }
         }
     }
