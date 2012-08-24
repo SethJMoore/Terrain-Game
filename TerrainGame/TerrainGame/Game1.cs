@@ -16,6 +16,7 @@ namespace TerrainGame
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        const int SCALE = 4;
         int updateFrequency;
 
         public static Random rand;
@@ -65,8 +66,8 @@ namespace TerrainGame
             terrainTexture = terrain.ToAbgrTexture(graphics.GraphicsDevice);
 
 
-            graphics.PreferredBackBufferHeight = mapHeight * 2;
-            graphics.PreferredBackBufferWidth = mapWidth * 2;
+            graphics.PreferredBackBufferHeight = mapHeight * SCALE;
+            graphics.PreferredBackBufferWidth = mapWidth * SCALE;
             graphics.ApplyChanges();
             this.IsMouseVisible = true;
 
@@ -231,22 +232,23 @@ namespace TerrainGame
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             //spriteBatch.Draw(terrainTexture, new Vector2(0, 0), Color.White); //One pixel per location.
-            spriteBatch.Draw(terrainTexture, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0),new Vector2(2,2), SpriteEffects.None,1);
+            spriteBatch.Draw(terrainTexture, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0),new Vector2(SCALE,SCALE), SpriteEffects.None,1);
             foreach (Critter c in terrain.AllTheCritters)
             {
                 if (c.GetCritterType == Critter.CritterType.Climber)
                 {
                     //spriteBatch.Draw(critterTexture1, new Vector2(c.X, c.Y), Color.White); //One pixel per critter.
-                    spriteBatch.Draw(critterTexture1, new Vector2(c.X * 2, c.Y * 2), null, Color.White, 0, new Vector2(0, 0), new Vector2(2, 2), SpriteEffects.None, 1);
+                    spriteBatch.Draw(critterTexture1, new Vector2(c.X * SCALE, c.Y * SCALE), null, Color.White, 0, new Vector2(0, 0), new Vector2(SCALE, SCALE), SpriteEffects.None, 1);
                 }
                 else
                 {
                     //spriteBatch.Draw(critterTexture2, new Vector2(c.X, c.Y), Color.White); //One pixel per critter.
-                    spriteBatch.Draw(critterTexture2, new Vector2(c.X * 2, c.Y * 2), null, Color.White, 0, new Vector2(0, 0), new Vector2(2, 2), SpriteEffects.None, 1);
+                    spriteBatch.Draw(critterTexture2, new Vector2(c.X * SCALE, c.Y * SCALE), null, Color.White, 0, new Vector2(0, 0), new Vector2(SCALE, SCALE), SpriteEffects.None, 1);
                 }
             }
 
-            spriteBatch.Draw(riderTexture, new Vector2(terrain.TheRider.X * 2, terrain.TheRider.Y * 2), null, Color.White, 0, new Vector2(0, 0), new Vector2(2, 2), SpriteEffects.None, 1);
+            //spriteBatch.Draw(riderTexture, new Vector2(terrain.TheRider.X * 2, terrain.TheRider.Y * 2), Color.White); //One pixel for the rider.
+            spriteBatch.Draw(riderTexture, new Vector2(terrain.TheRider.X * SCALE, terrain.TheRider.Y * SCALE), null, Color.White, 0, new Vector2(0, 0), new Vector2(SCALE, SCALE), SpriteEffects.None, 1);
             spriteBatch.End();
 
             base.Draw(gameTime);
