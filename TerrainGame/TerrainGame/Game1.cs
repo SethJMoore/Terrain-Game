@@ -93,7 +93,7 @@ namespace TerrainGame
             critterTexture2 = new Texture2D(GraphicsDevice, 1, 1);
             critterTexture2.SetData(cT);
 
-            cT[0] = Color.HotPink;
+            cT[0] = Color.White;
             riderTexture = new Texture2D(GraphicsDevice, 1, 1);
             riderTexture.SetData(cT);
         }
