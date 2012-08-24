@@ -28,6 +28,8 @@ namespace TerrainGame
         Texture2D critterTexture1;
         Texture2D critterTexture2;
 
+        Texture2D riderTexture;
+
         KeyboardState previousKeyboardState;
 
         uint turnNumber;
@@ -85,6 +87,10 @@ namespace TerrainGame
             cT[0] = Color.Red;
             critterTexture2 = new Texture2D(GraphicsDevice, 1, 1);
             critterTexture2.SetData(cT);
+
+            cT[0] = Color.HotPink;
+            riderTexture = new Texture2D(GraphicsDevice, 1, 1);
+            riderTexture.SetData(cT);
         }
 
         /// <summary>
@@ -188,6 +194,8 @@ namespace TerrainGame
                     spriteBatch.Draw(critterTexture2, new Vector2(c.X * 2, c.Y * 2), null, Color.White, 0, new Vector2(0, 0), new Vector2(2, 2), SpriteEffects.None, 1);
                 }
             }
+
+            spriteBatch.Draw(riderTexture, new Vector2(terrain.TheRider.X * 2, terrain.TheRider.Y * 2), null, Color.White, 0, new Vector2(0, 0), new Vector2(2, 2), SpriteEffects.None, 1);
             spriteBatch.End();
 
             base.Draw(gameTime);

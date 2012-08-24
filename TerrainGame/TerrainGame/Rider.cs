@@ -10,6 +10,22 @@ namespace TerrainGame
         private Critter myMount;
         int x, y;
 
+        public int X
+        {
+            get
+            {
+                return x;
+            }
+        }
+        
+        public int Y
+        {
+            get
+            {
+                return y;
+            }
+        }
+
         public Rider()
         {
             x = -1;
@@ -25,10 +41,15 @@ namespace TerrainGame
 
         internal void Update()
         {
-            if (myMount.Alive)
+            if (myMount != null && myMount.Alive)
             {
                 x = myMount.X;
                 y = myMount.Y;
+            }
+            else
+            {
+                x = 0;
+                y = 0;
             }
         }
     }

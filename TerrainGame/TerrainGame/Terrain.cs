@@ -15,6 +15,14 @@ namespace TerrainGame
         private int width;
         private int height;
 
+        public Rider TheRider
+        {
+            get
+            {
+                return rider;
+            }
+        }
+
         public uint[] TerrainHeightMap
         {
             get
@@ -46,6 +54,7 @@ namespace TerrainGame
             terrainHeightMap = new uint[0];
             occupiedBy = new Critter[0];
             allTheCritters = new List<Critter>();
+            rider = new Rider();
         }
 
         public Terrain(int w, int h)
@@ -303,6 +312,7 @@ namespace TerrainGame
             {
                 c.Update(this);
             }
+            rider.Update();
         }
 
         public IEnumerable<Critter> AllTheCritters { get { return allTheCritters; } }
