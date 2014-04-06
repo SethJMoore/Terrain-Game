@@ -6,6 +6,8 @@ Mesmerizing little thing I ended up with while getting a feel for using Microsof
 There are blue critters and red critters. The blue critters live in the mountaintops, and only descend into the valleys
 in order to mate with the red critters. The red critters have the reverse behavior.
 
+![Game in progress](http://4.bp.blogspot.com/-hKfwDvO8t0s/Uyh3tw9XelI/AAAAAAAAGVM/bT163KAUKVo/s1600/TerrainGame.JPG)
+
 On initially starting, a random terrain is presented with a white square in the upper lefthand corner (that's you).
 typing 'v' will randomly place one critter at a time. Typing 'p' will place 100 random critters. If a critter runs over
 your square, you will start riding the critter. You can use the arrow keys to move from one critter to an adjacent critter.
